@@ -17,8 +17,8 @@ namespace BadgesRepo
         public bool AddBadgeToDatabase(BadgeItem badge)
         {
             int StartingCount = _badgeDatabase.Count;
-            _count++;
-            _badgeDatabase.Add(_count, badge);
+            
+            _badgeDatabase.Add(badge.BadgeId, badge);
             if (StartingCount < _badgeDatabase.Count)
             {
                 return true;
@@ -36,9 +36,9 @@ namespace BadgesRepo
         }
 
         public BadgeItem GetBadge(int badgeId)
-        {
-            foreach (var badge in _badgeDatabase)
 
+        {            
+            foreach (var badge in _badgeDatabase)
             {
                 if (badgeId == badge.Key) 
                 {
@@ -71,13 +71,14 @@ namespace BadgesRepo
             foreach (var badge in _badgeDatabase)
             {
                 if (badgeId == badge.Key)
-                {
-                    if (badge.Value.DoorNames.Contains(door))
+                { 
+                    if(badge.Value.DoorNames.Contains(door))
                     {
                         badge.Value.DoorNames.Remove(door);
                         return true;
+
                     }
-                    
+
                 }
             }
             return false;

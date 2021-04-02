@@ -71,6 +71,14 @@ namespace Badges
 
                 Console.WriteLine("Any other doors(y/n)?");
                 string input = Console.ReadLine();
+               
+
+                if (input == "y")
+                {
+                    Console.WriteLine("List a door that it needs access to:");
+
+                }
+
                 if (input == "n")
                 {
                     keepAdding = false;
@@ -94,10 +102,11 @@ namespace Badges
 
         private void EditBadge()
         {
+            Console.Clear();
             Console.WriteLine("What is the badge number to update?");
             int inputBadgeNumber = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("What would you like to do?/n" +
+            Console.WriteLine("What would you like to do?\n" +
                 "1. Remove a door\n" +
                 "2. Add a door\n");
             string inputDoorUpdate = Console.ReadLine();
@@ -108,9 +117,6 @@ namespace Badges
                 Console.WriteLine("Which door would you like to remove?");
                 string inputDoorNumber = Console.ReadLine();
 
-
-
-
                 bool isSuccessful = _badgeRespository.DeleteDoors(inputBadgeNumber, inputDoorNumber);
                 if (isSuccessful)
                 {
@@ -120,8 +126,7 @@ namespace Badges
                 {
                     Console.WriteLine("Door not removed");
                 }
-
-
+                Console.ReadKey();
             }
         }
 
@@ -133,7 +138,15 @@ namespace Badges
             Console.Clear();
 
             Dictionary<int, BadgeItem> badge = _badgeRespository.ListBadges();
-
+            foreach (var item in badge)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (var doorName in item.Value.DoorNames)
+                {
+                    Console.WriteLine(doorName);
+                }
+            }
+            Console.ReadKey();
         }
 
 
